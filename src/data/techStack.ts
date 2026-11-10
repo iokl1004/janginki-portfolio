@@ -44,4 +44,11 @@ export const techStack: { group: string; items: TechItem[] }[] = [
       { name: 'SVN / Git', level: 'work', usage: '프로젝트 버전 관리 (SVN 중심, 차세대 ERP는 Git)' },
     ],
   },
+  {
+    group: 'AI Tools',
+    items: [
+      { name: 'Claude', usage: '포트폴리오 사이트 개발, 코드 작성과 검토, 문구 정리' },
+      { name: 'ChatGPT / Gemini', usage: '개발 중 오류 원인 분석, SQL 쿼리 검토, 새 기술 학습 보조' },
+    ],
+  },
 ]
