@@ -1,6 +1,18 @@
+import movieHome from '../assets/projects/movie-home.jpg'
+import movieHover from '../assets/projects/movie-hover.jpg'
+import movieDetail from '../assets/projects/movie-detail.jpg'
+
+export type Screenshot = {
+  src: string
+  caption: string
+  width: number
+  height: number
+}
+
 export type Project = {
   id: string
   kind?: 'company' | 'personal' // 생략하면 회사 프로젝트
+  featured?: number // 값이 있으면 대표 프로젝트로 크게 표시. 작을수록 앞에 나옴
   title: string
   company?: string
   period: string
@@ -8,6 +20,7 @@ export type Project = {
   summary: string
   headline?: { label: string; value: string }
   flow?: string[]
+  screenshots?: Screenshot[] // 첫 두 장은 대표 카드에도 표시
   problem: string
   approach: string
   result: string[]
@@ -87,6 +100,7 @@ export const projects: Project[] = [
   },
   {
     id: 'hanmi-payroll',
+    featured: 2,
     title: '한미엔택 인사/급여/근태 ERP 구축',
     company: '티에이케이정보시스템',
     period: '2023.11 ~ 2024.02',
@@ -309,6 +323,7 @@ export const projects: Project[] = [
   {
     id: 'movie-web-service',
     kind: 'personal',
+    featured: 1,
     title: '영화 정보 웹 서비스',
     period: '2024.10 ~ 2024.11',
     role: '1인 개발 / 인프런 강의 수강 후 직접 확장',
@@ -326,6 +341,11 @@ export const projects: Project[] = [
     ],
     note:
       '배포본은 GitHub Pages(정적 호스팅)에 올라가 있어서, 로그인/댓글/좋아요처럼 서버가 필요한 기능은 로컬 개발 환경에서만 동작합니다.',
+    screenshots: [
+      { src: movieHome, caption: '메인 화면', width: 1280, height: 608 },
+      { src: movieHover, caption: '영화 카드에 마우스를 올리면 제목, 평점, 소개글 표시', width: 1280, height: 594 },
+      { src: movieDetail, caption: '영화 상세 정보 화면', width: 1280, height: 608 },
+    ],
     stack: ['React', 'React Router', 'Node.js', 'MongoDB', 'RESTful API', 'TMDB API'],
     links: [
       { label: 'Live', url: 'https://iokl1004.github.io/John_Ahn_POP_Movie_React/' },

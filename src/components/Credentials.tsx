@@ -1,3 +1,5 @@
+import SectionHeading from './SectionHeading'
+
 const education = [
   {
     period: '2019.03 ~ 2020.02',
@@ -27,8 +29,8 @@ const certificates: { name: string; issuer: string; date?: string }[] = [
 
 export default function Credentials() {
   return (
-    <section id="credentials" className="scroll-mt-16 py-16">
-      <h2 className="text-3xl font-bold">학력 / 자격</h2>
+    <section id="credentials" data-reveal className="scroll-mt-16 py-20">
+      <SectionHeading eyebrow="Credentials" title="학력 / 자격" />
 
       <div className="mt-8 space-y-8">
         <div>

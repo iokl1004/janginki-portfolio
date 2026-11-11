@@ -1,12 +1,14 @@
 import { techStack } from '../data/techStack'
+import SectionHeading from './SectionHeading'
 
 export default function TechStack() {
   return (
-    <section id="stack" className="scroll-mt-16 py-16">
-      <h2 className="text-3xl font-bold">기술 스택</h2>
-      <p className="mt-2 text-gray-600">
-        숙련도 대신, 실제로 어디에 썼는지를 적었습니다. 실무는 회사 프로젝트에서 쓴 기술이고, 학습은 개인 프로젝트로 익힌 기술입니다.
-      </p>
+    <section id="stack" data-reveal className="scroll-mt-16 py-20">
+      <SectionHeading
+        eyebrow="Tech Stack"
+        title="기술 스택"
+        description="숙련도 대신, 실제로 어디에 썼는지를 적었습니다. 실무는 회사 프로젝트에서 쓴 기술이고, 학습은 개인 프로젝트로 익힌 기술입니다."
+      />
       <div className="mt-8 space-y-8">
         {techStack.map((g) => (
           <div key={g.group}>

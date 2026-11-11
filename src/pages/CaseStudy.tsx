@@ -71,6 +71,24 @@ export default function CaseStudy() {
         </ol>
       )}
 
+      {project.screenshots && (
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          {project.screenshots.map((s, i) => (
+            <figure key={s.src} className={i === 0 ? 'md:col-span-2' : undefined}>
+              <img
+                src={s.src}
+                width={s.width}
+                height={s.height}
+                alt={s.caption}
+                loading="lazy"
+                className="rounded-lg border border-gray-200"
+              />
+              <figcaption className="mt-2 text-sm text-gray-500">{s.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
+
       <Section label="01 Problem" body={project.problem} />
       <Section label="02 Approach" body={project.approach} />
 

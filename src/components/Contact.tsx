@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { profile } from '../data/profile'
+import SectionHeading from './SectionHeading'
 
 type Row = { key: string; label: string; display: string; href: string; copy: string }
 
@@ -38,12 +39,15 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="scroll-mt-16 py-16">
-      <p className="font-mono text-xs text-blue-600">// contact</p>
-      <h2 className="mt-1 text-3xl font-bold">함께 일해요</h2>
-      <p className="mt-2 text-gray-600">채용과 협업 제안 모두 편하게 연락 주세요.</p>
+    <section id="contact" data-reveal className="scroll-mt-16 py-20">
+      <div className="rounded-3xl bg-blue-50 p-8 md:p-12 dark:bg-blue-950/40">
+      <SectionHeading
+        eyebrow="Contact"
+        title="함께 일해요"
+        description="채용과 협업 제안 모두 편하게 연락 주세요."
+      />
 
-      <ul className="mt-6 max-w-lg divide-y divide-gray-100 overflow-hidden rounded-xl border border-gray-200 font-mono text-sm">
+      <ul className="mt-6 max-w-lg divide-y divide-gray-100 overflow-hidden rounded-xl border border-gray-200 bg-white font-mono text-sm dark:bg-slate-900">
         {rows.map((r) => (
           <li
             key={r.key}
@@ -71,6 +75,7 @@ export default function Contact() {
           </li>
         ))}
       </ul>
+      </div>
     </section>
   )
 }

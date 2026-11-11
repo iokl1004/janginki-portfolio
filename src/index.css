@@ -2,9 +2,23 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  /* 사이트 포인트 색. 아래 값만 바꾸면 전체 포인트 색이 함께 바뀝니다. */
+  --color-blue-50: #f0fdfa;
+  --color-blue-400: #2dd4bf;
+  --color-blue-500: #14b8a6;
+  --color-blue-600: #0f766e;
+  --color-blue-700: #115e59;
+  --color-blue-950: #042f2e;
+}
+
 body {
   background-color: #ffffff;
   color: var(--color-gray-900);
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .dark {
@@ -22,7 +36,7 @@ body {
   color: #f1f5f9;
 }
 
-/* 다크 배경에서는 파란 글씨를 한 단계 밝게 */
+/* 다크 배경에서는 포인트 색 글씨를 한 단계 밝게 */
 .dark .text-blue-600,
 .dark .hover\:text-blue-600:hover {
   color: var(--color-blue-400);
@@ -32,5 +46,72 @@ body {
   button:not(:disabled),
   [role='button'] {
     cursor: pointer;
+  }
+}
+
+/* 히어로 배경: 은은한 빛 + 점 격자 */
+.hero-backdrop {
+  background:
+    radial-gradient(60% 70% at 85% 20%, color-mix(in oklab, var(--color-blue-500) 18%, transparent), transparent 70%),
+    radial-gradient(45% 55% at 5% 90%, color-mix(in oklab, var(--color-blue-400) 10%, transparent), transparent 70%);
+  mask-image: linear-gradient(to bottom, black 65%, transparent);
+}
+
+.hero-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--color-gray-300) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(70% 70% at 70% 40%, black, transparent);
+  opacity: 0.55;
+}
+
+/* 계층 그림에서 요청/응답이 오가는 점 */
+.packet-down,
+.packet-up {
+  animation-duration: 3.2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.packet-down {
+  animation-name: packet-down;
+}
+
+.packet-up {
+  animation-name: packet-up;
+  animation-delay: 1.6s;
+}
+
+@keyframes packet-down {
+  0% { top: 0; opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes packet-up {
+  0% { top: 100%; opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { top: 0; opacity: 0; }
+}
+
+/* 스크롤하면 섹션이 부드럽게 나타남 */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  [data-reveal]:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .packet-down,
+  .packet-up {
+    animation: none;
+    opacity: 0;
   }
 }

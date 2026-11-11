@@ -17,7 +17,7 @@ export default function SideNav() {
   return (
     <nav
       aria-label="섹션 바로가기"
-      className="fixed right-6 top-1/2 z-10 hidden w-36 -translate-y-1/2 rounded-2xl border border-gray-200 bg-white/90 p-2 shadow-sm backdrop-blur dark:bg-slate-900/90 xl:block"
+      className="fixed right-6 top-1/2 z-10 hidden w-36 -translate-y-1/2 rounded-2xl border border-gray-200 bg-white/90 p-2 shadow-sm backdrop-blur dark:bg-slate-900/90 2xl:block"
     >
       <p className="px-3 pb-1 pt-1 text-xs font-medium text-gray-500">바로가기</p>
       <ul className="flex flex-col gap-0.5">

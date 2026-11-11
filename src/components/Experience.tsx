@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { projects } from '../data/projects'
 import { saveHomeScroll } from '../utils/scrollMemory'
+import SectionHeading from './SectionHeading'
 
 const experiences = [
   {
@@ -48,8 +49,8 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="scroll-mt-16 py-16">
-      <h2 className="text-3xl font-bold">경력</h2>
+    <section id="experience" data-reveal className="scroll-mt-16 py-20">
+      <SectionHeading eyebrow="Experience" title="경력" />
       <div className="mt-8 space-y-10">
         {experiences.map((e) => {
           const related = projects.filter((p) => p.company === e.company)
