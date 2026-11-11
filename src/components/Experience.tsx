@@ -11,7 +11,7 @@ const experiences = [
     summary: '클라우드/구축형 HR 플랫폼 전문기업에서 인사/급여/평가 모듈을 개발했습니다.',
     points: [
       'Java 11, Spring Framework, JPA/MyBatis 기반 인사 ERP 개발',
-      'IBSheet 7.0과 jsViews로 대용량 인사 데이터 화면을, Crownix Report 7.0으로 인사/급여 출력물을 개발',
+      'IBSheet 7.0과 jsViews로 약 1,000건 규모의 인사 데이터 화면을, Crownix Report 7.0으로 인사/급여 출력물을 개발',
       'PostgreSQL 환경에서 JPA/MyBatis 혼용 구조의 조회 성능과 유지보수성 개선',
     ],
   },

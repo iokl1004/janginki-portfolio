@@ -31,7 +31,7 @@ export const techStack: { group: string; items: TechItem[] }[] = [
     items: [
       { name: 'JavaScript (ES6) / HTML / JSP', level: 'work', usage: 'ERP 화면 개발 전반' },
       { name: 'NEXACRO', level: 'work', usage: '대한축구협회 인사평가 시스템 프론트엔드 화면 설계 주도' },
-      { name: 'IBSheet 7.0 / jsViews', level: 'work', usage: '해광 인사 ERP의 대용량 인사 데이터 그리드 화면 개발' },
+      { name: 'IBSheet 7.0 / jsViews', level: 'work', usage: '해광 인사 ERP의 약 1,000건 규모 인사 데이터 그리드 화면 개발' },
       { name: 'Crownix Report 7.0', level: 'work', usage: '해광 인사 ERP 인사/급여 출력물 리포트 자동화' },
       { name: 'React.js', level: 'study', usage: '영화 정보 웹 서비스(로그인, 댓글/대댓글, 좋아요/싫어요, 즐겨찾기)와 이 포트폴리오 사이트' },
     ],

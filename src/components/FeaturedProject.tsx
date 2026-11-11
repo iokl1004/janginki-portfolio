@@ -11,6 +11,12 @@ export default function FeaturedProject({ project, reverse }: { project: Project
         </p>
         <h3 className="mt-2 text-2xl font-bold tracking-tight">{project.title}</h3>
         <p className="mt-3 leading-relaxed text-gray-600">{project.summary}</p>
+        {project.headline && (
+          <p className="mt-4 text-sm text-gray-500">
+            {project.headline.label}{' '}
+            <span className="text-lg font-bold text-blue-600">{project.headline.value}</span>
+          </p>
+        )}
         <div className="mt-5 flex flex-wrap gap-1.5">
           {project.stack.slice(0, 6).map((s) => (
             <span key={s} className="rounded bg-gray-100 px-2 py-1 text-xs">

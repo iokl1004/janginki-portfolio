@@ -8,7 +8,6 @@ import Contact from '../components/Contact'
 import SectionHeading from '../components/SectionHeading'
 import StackDiagram from '../components/StackDiagram'
 import { projects } from '../data/projects'
-import { personalProjects } from '../data/personalProjects'
 import { profile } from '../data/profile'
 import { scrollToId } from '../utils/scroll'
 import SideNav from '../components/SideNav'
@@ -30,11 +29,10 @@ export default function Home() {
   const others = projects.filter((p) => p.featured === undefined)
 
   const companyCount = projects.filter((p) => p.kind !== 'personal').length
-  const personalCount = projects.length - companyCount + personalProjects.length
   const stats = [
     { value: '약 3년', label: '실무 경력' },
     { value: `${companyCount}건`, label: '실무 프로젝트' },
-    { value: `${personalCount}건`, label: '개인/학습 프로젝트' },
+    { value: '100여 개', label: 'SQL 프로시저 개발' },
   ]
 
   return (
