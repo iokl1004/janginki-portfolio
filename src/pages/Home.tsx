@@ -78,7 +78,7 @@ export default function Home() {
                 연락하기
               </button>
               <div className="ml-2 flex gap-4 font-mono text-sm text-gray-500">
-                <a href={`mailto:${profile.email}`} className="transition hover:text-blue-600">
+                <a href={`mailto:${profile.email}`} className="inline-flex min-h-11 items-center transition hover:text-blue-600">
                   email ↗
                 </a>
                 {profile.github && (
@@ -86,7 +86,7 @@ export default function Home() {
                     href={profile.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="transition hover:text-blue-600"
+                    className="inline-flex min-h-11 items-center transition hover:text-blue-600"
                   >
                     github ↗
                   </a>

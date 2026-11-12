@@ -11,7 +11,7 @@ export default function PersonalProjects() {
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-controls="learning-projects"
-          className="flex items-center gap-2 text-xl font-semibold"
+          className="flex min-h-11 items-center gap-2 text-xl font-semibold"
         >
           <span aria-hidden className={`text-base transition-transform duration-300 motion-reduce:transition-none ${open ? 'rotate-90' : ''}`}>
             ▸

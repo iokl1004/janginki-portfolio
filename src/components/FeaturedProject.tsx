@@ -30,7 +30,7 @@ export default function FeaturedProject({ project, reverse }: { project: Project
           <Link
             to={`/projects/${project.id}`}
             onClick={saveHomeScroll}
-            className="text-blue-600 after:absolute after:inset-0"
+            className="inline-flex min-h-11 items-center text-blue-600 after:absolute after:inset-0"
           >
             케이스 스터디 보기 <span className="inline-block transition group-hover:translate-x-1">→</span>
           </Link>
@@ -40,7 +40,7 @@ export default function FeaturedProject({ project, reverse }: { project: Project
               href={l.url}
               target="_blank"
               rel="noreferrer"
-              className="relative z-10 text-gray-600 transition hover:text-blue-600"
+              className="relative z-10 inline-flex min-h-11 items-center text-gray-600 transition hover:text-blue-600"
             >
               {l.label} ↗
             </a>

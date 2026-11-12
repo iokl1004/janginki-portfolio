@@ -75,7 +75,7 @@ export default function Experience() {
                       <li key={p.id}>
                         <Link
                           to={`/projects/${p.id}`}
-                          className="hover:text-blue-600"
+                          className="inline-flex min-h-11 items-center hover:text-blue-600"
                           onClick={saveHomeScroll}
                         >
                           {p.title} <span className="text-gray-500">({p.period})</span>
