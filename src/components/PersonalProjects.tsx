@@ -48,12 +48,12 @@ export default function PersonalProjects() {
                 </div>
                 <div className="flex shrink-0 gap-3 text-sm">
                   {p.live && (
-                    <a href={p.live} target="_blank" rel="noreferrer" className="text-blue-600">
+                    <a href={p.live} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center text-blue-600">
                       Live ↗
                     </a>
                   )}
                   {p.repo && (
-                    <a href={p.repo} target="_blank" rel="noreferrer" className="text-blue-600">
+                    <a href={p.repo} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center text-blue-600">
                       GitHub ↗
                     </a>
                   )}

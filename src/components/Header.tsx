@@ -55,9 +55,9 @@ export default function Header() {
           <ThemeToggle />
           <button
             onClick={() => setOpen(!open)}
-            aria-label="메뉴 열기"
+            aria-label={open ? '메뉴 닫기' : '메뉴 열기'}
             aria-expanded={open}
-            className="rounded-lg border border-gray-200 px-2 py-1 text-sm"
+            className="flex h-11 w-11 items-center justify-center rounded-lg border border-gray-200 text-sm"
           >
             {open ? '✕' : '☰'}
           </button>
@@ -71,7 +71,7 @@ export default function Header() {
             <li key={m.id}>
               <button
                 onClick={() => go(m.id)}
-                className={`w-full py-2 text-left ${itemClass(m.id)}`}
+                className={`w-full py-3 text-left ${itemClass(m.id)}`}
               >
                 {m.label}
               </button>

@@ -59,7 +59,7 @@ export default function Contact() {
             <button
               onClick={() => copy(r)}
               aria-label={`${r.label} 복사`}
-              className="relative z-10 shrink-0 rounded border border-gray-200 px-2 py-1 text-xs text-gray-600 transition hover:border-blue-500 hover:text-blue-600"
+              className="relative z-10 h-11 shrink-0 rounded border border-gray-200 px-3 text-xs text-gray-600 transition hover:border-blue-500 hover:text-blue-600"
             >
               {copied === r.key ? '복사됨 ✓' : '복사'}
             </button>

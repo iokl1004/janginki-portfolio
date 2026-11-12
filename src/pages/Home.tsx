@@ -67,13 +67,13 @@ export default function Home() {
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <button
                 onClick={() => scrollToId('projects')}
-                className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700"
+                className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 active:scale-[0.98]"
               >
                 프로젝트 보기
               </button>
               <button
                 onClick={() => scrollToId('contact')}
-                className="rounded-lg border border-gray-300 px-6 py-3 font-medium transition hover:border-blue-500"
+                className="rounded-lg border border-gray-300 px-6 py-3 font-medium transition hover:-translate-y-0.5 hover:border-blue-500 active:translate-y-0 active:scale-[0.98]"
               >
                 연락하기
               </button>

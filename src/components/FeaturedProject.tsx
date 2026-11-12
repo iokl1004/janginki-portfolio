@@ -4,7 +4,7 @@ import { saveHomeScroll } from '../utils/scrollMemory'
 
 export default function FeaturedProject({ project, reverse }: { project: Project; reverse?: boolean }) {
   return (
-    <article className="group relative grid overflow-hidden rounded-2xl border border-gray-200 transition hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-black/5 md:grid-cols-2">
+    <article className="group relative grid overflow-hidden rounded-2xl border border-gray-200 transition hover:-translate-y-0.5 hover:border-blue-500 hover:shadow-xl hover:shadow-black/5 md:grid-cols-2">
       <div className="flex flex-col p-7 md:p-9">
         <p className="text-sm text-gray-500">
           {project.kind === 'personal' ? '개인 프로젝트' : project.company} · {project.period}
