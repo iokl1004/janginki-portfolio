@@ -32,7 +32,9 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-10 border-b border-gray-200 bg-white/80 backdrop-blur dark:bg-slate-950/80">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        <button onClick={() => go('top')} className="font-semibold">
+        <button onClick={() => go('top')} className="inline-flex items-center gap-2 font-semibold">
+          {/* 시그니처 아이콘 "인기 스타" (Popular_Jang) */}
+          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width={28} height={28} className="h-7 w-7 rounded-md" />
           {profile.name}
         </button>
 

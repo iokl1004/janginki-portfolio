@@ -1,6 +1,9 @@
 import movieHome from '../assets/projects/movie-home.jpg'
 import movieHover from '../assets/projects/movie-hover.jpg'
 import movieDetail from '../assets/projects/movie-detail.jpg'
+import bookHome from '../assets/projects/booknearby-home.jpg'
+import bookSearch from '../assets/projects/booknearby-search.jpg'
+import bookDetail from '../assets/projects/booknearby-detail.jpg'
 
 export type Screenshot = {
   src: string
@@ -36,6 +39,55 @@ export type Project = {
 // why(설계 선택 이유)는 문서에 근거가 없어 전부 비워 두었습니다. 기억나는 항목부터 채워 주세요.
 
 export const projects: Project[] = [
+  {
+    id: 'book-nearby',
+    kind: 'personal',
+    featured: 1,
+    title: '책있나 (BookNearby)',
+    period: '2026.11',
+    role: '1인 개발 / 기획·디자인·프론트엔드·서버 함수·배포',
+    summary:
+      '책을 검색하면 근처 도서관 중 그 책을 가진 곳과 지금 빌릴 수 있는지, 오늘 문을 여는지를 지도로 보여주는 웹 서비스',
+    headline: { label: 'Lighthouse 접근성·권장 사항·SEO', value: '100점' },
+    flow: [
+      '책 검색 (카카오 책 검색)',
+      '소장 도서관 조회 (정보나루)',
+      '대출 가능 여부 확인',
+      '운영시간·공휴일 휴관 판단',
+      '지도에 표시 (카카오맵)',
+    ],
+    screenshots: [
+      { src: bookDetail, caption: '소장 도서관 목록과 지도: 동네 검색, 오늘 여는 곳만, 대출 정보 확인 시각, 지도 정보 카드', width: 1280, height: 800 },
+      { src: bookSearch, caption: '검색 결과: 제목·저자 동시 검색, 20권씩 더 보기', width: 1280, height: 800 },
+      { src: bookHome, caption: '첫 화면: 요즘 많이 빌리는 책, 찜한 책', width: 1280, height: 800 },
+    ],
+    problem:
+      '보고 싶은 책이 있어도 어느 도서관에 있는지, 지금 빌릴 수 있는지, 오늘 문을 여는지를 알려면 도서관 사이트를 하나씩 찾아봐야 했습니다. 필요한 데이터는 도서관 정보나루, 카카오, 공공데이터포털에 흩어져 있었고, 정보나루는 하루 호출 한도가 있고 일부 기능은 등록된 IP에서만, 해외에서는 아예 접속되지 않는 제약이 있었습니다.',
+    approach:
+      'React 화면과 Vercel 서버 함수(서울 리전)를 나누어, 서버 함수가 API 키를 숨기고 여러 API를 하나의 응답으로 합치도록 했습니다. 검색은 IP 제한이 없는 카카오 책 검색으로, 소장 도서관과 대출 여부는 정보나루로 가져와 ISBN으로 이었습니다. 호출 한도를 지키기 위해 메모리 → 공용 Redis(Upstash) → CDN 3단계 캐시를 두고, 대출 여부는 가까운 3곳만 먼저 확인한 뒤 "더 보기"로 이어 받습니다. 운영시간은 전국도서관표준데이터를 미리 수집해 좌표와 이름으로 정보나루 도서관과 짝을 찾고, 정해진 형식이 없는 휴관일 표기("셋째 주 월", "일요일을 제외한 법정공휴일")를 해석해 공휴일까지 반영한 "오늘 운영 상태"를 보여줍니다.',
+    result: [
+      '검색 → 소장 도서관 → 대출 가능 여부 → 오늘 운영 여부 → 지도까지 한 화면에서 확인',
+      '3단계 캐시와 "가까운 3곳 먼저" 조회로 상세 화면 1번당 정보나루 호출 5건 → 3건, 이름·동네 필터와 "오늘 여는 곳만"도 호출 수 증가 없이 구현',
+      '휴관일 원문 해석 + 공휴일(특일 정보 API) 반영으로 "오늘 휴관 · 추석"처럼 이유까지 표시',
+      '지역·검색어·필터를 주소에 담아 공유 링크와 카카오톡 미리보기 카드(책 제목·표지)에서 같은 화면이 열리도록 구현',
+      'Vitest 단위 테스트 186개, Playwright 화면 클릭 테스트 8개를 GitHub Actions로 푸시마다 자동 실행',
+      'Lighthouse(모바일) 성능 68 → 80, 접근성·권장 사항·SEO 100점',
+    ],
+    why:
+      '서버를 따로 두지 않고 Vercel 서버 함수를 쓴 이유는, 이 서비스에 필요한 서버 역할이 "API 키 숨기기와 응답 합치기·캐시"뿐이었기 때문입니다. 함수 리전을 서울(icn1)로 둔 것은 정보나루가 해외 접속을 받지 않아서이고, 시간에 따라 바뀌는 "지금 운영 중" 판단은 CDN에 저장되지 않도록 브라우저에서 계산했습니다.',
+    qna: [
+      { q: '검색을 정보나루가 아니라 카카오로 바꾼 이유는 무엇인가요?', a: '정보나루의 도서 검색 기능만 등록된 IP에서 호출해야 했는데, Vercel 서버는 IP가 고정되어 있지 않아 배포 환경에서 "인증정보 불일치"로 거절됐습니다. 기능별로 호출해 원인을 좁힌 뒤, 검색은 IP 제한이 없는 카카오 책 검색으로 바꾸고 소장 도서관·대출 여부는 정보나루를 유지했습니다. 두 API를 ISBN으로 이어 붙였습니다.' },
+      { q: '정보나루 하루 호출 한도는 어떻게 지켰나요?', a: '메모리 → 공용 Redis → CDN 순서의 캐시를 두고, 동시에 들어온 같은 요청은 한 번만 호출합니다. 대출 여부는 가까운 3곳만 먼저 묻고, 다른 지역 소장 현황(17건 호출)은 버튼을 눌렀을 때만 조회합니다. 위치는 약 1km 단위로 반올림해 근처 사용자끼리 캐시를 함께 쓰게 했습니다.' },
+      { q: '캐시 때문에 오래된 대출 정보를 보여줄 수 있지 않나요?', a: '그래서 대출 여부만 저장 시간을 1시간으로 짧게 두고, 정보나루가 실패해도 지난 대출 정보는 대신 쓰지 않습니다. 화면에는 "대출 정보는 12분 전에 확인했어요"처럼 실제로 확인한 시각을 보여줍니다.' },
+      { q: '테스트는 어떻게 구성했나요?', a: '휴관일 해석, 공휴일 판단, 캐시, 검색 결과 정리 같은 로직은 Vitest 단위 테스트로, 검색 → 상세 → 필터 → 찜 같은 사용자 흐름은 Playwright로 검증합니다. 화면 클릭 테스트는 API를 가짜 응답으로 바꿔 호출 한도를 쓰지 않고, GitHub Actions에서 푸시마다 자동으로 돌아갑니다.' },
+    ],
+    stack: ['React', 'TypeScript', 'Vite', 'TanStack Query', 'Vercel Functions', 'Upstash Redis', '카카오맵 API', '도서관 정보나루 API', 'Vitest', 'Playwright', 'GitHub Actions'],
+    links: [
+      { label: 'Live', url: 'https://book-nearby.vercel.app' },
+      { label: 'GitHub', url: 'https://github.com/iokl1004/book-nearby' },
+    ],
+    isPrivate: false,
+  },
   {
     id: 'haegwang-hr',
     title: '㈜해광 인사/평가/급여 ERP 개발',
@@ -100,7 +152,7 @@ export const projects: Project[] = [
   },
   {
     id: 'hanmi-payroll',
-    featured: 2,
+    featured: 3,
     headline: { label: '급여 계산 대상', value: '사원 약 200명' },
     title: '한미엔택 인사/급여/근태 ERP 구축',
     company: '티에이케이정보시스템',
@@ -326,7 +378,7 @@ export const projects: Project[] = [
   {
     id: 'movie-web-service',
     kind: 'personal',
-    featured: 1,
+    featured: 2,
     title: '영화 정보 웹 서비스',
     period: '2024.10 ~ 2024.11',
     role: '1인 개발 / 인프런 강의 수강 후 직접 확장',
