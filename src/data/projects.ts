@@ -4,6 +4,8 @@ import movieDetail from '../assets/projects/movie-detail.jpg'
 import bookHome from '../assets/projects/booknearby-home.jpg'
 import bookSearch from '../assets/projects/booknearby-search.jpg'
 import bookDetail from '../assets/projects/booknearby-detail.jpg'
+import memoirHome from '../assets/projects/memoir-home.jpg'
+import memoirSearch from '../assets/projects/memoir-search.jpg'
 
 export type Screenshot = {
   src: string
@@ -89,6 +91,55 @@ export const projects: Project[] = [
     isPrivate: false,
   },
   {
+    id: 'memoir',
+    kind: 'personal',
+    featured: 2,
+    title: 'memoir (섹션별 메모 웹앱)',
+    period: '2026.11',
+    role: '1인 개발 / 기획·디자인·프론트엔드·DB 설계·배포',
+    summary:
+      '섹션을 트리로 나눠 메모를 쓰고 키워드와 작성일로 다시 찾는 메모 웹앱. Spring Boot로 만든 뒤, 무료 배포 문제로 배포 직전에 백엔드를 Supabase + Vercel로 옮겼습니다.',
+    headline: { label: '배포 직전 백엔드 전환', value: 'Spring Boot → Supabase' },
+    flow: [
+      'Spring Boot + MySQL로 개발',
+      'Oracle 한국 리전 무료 VM 없음',
+      '배포 방법 4가지 비교',
+      'Supabase(서울) + Vercel 선택',
+      '권한·규칙을 DB(RLS·트리거·함수)로 이전',
+    ],
+    screenshots: [
+      { src: memoirHome, caption: '섹션 트리, 메모 목록, 글과 그림을 함께 쓰는 편집기', width: 1280, height: 800 },
+      { src: memoirSearch, caption: '입력하는 동안 검색 결과 미리보기: 섹션 경로와 작성일 표시', width: 1280, height: 800 },
+    ],
+    problem:
+      '조건은 완전 무료 배포였습니다. Spring Boot 버전은 JVM과 MySQL이 늘 켜져 있어야 해서 사실상 Oracle Cloud Always Free만 가능했고, Docker 배포 묶음과 로컬 리허설까지 마쳤습니다. 그런데 Oracle 한국 리전에서 무료 VM을 받을 수 없었고, 일본 리전은 한 번 고른 홈 리전을 나중에 바꿀 수 없어 한국 리전이 열려도 옮길 수 없었습니다.',
+    approach:
+      'Oracle 일본 리전, Render, Cloudflare(Workers + D1), Supabase + Vercel을 장단점으로 비교해, 서울 리전이 있고 로그인·메일·캡차·파일 저장을 기본으로 주는 Supabase를 골랐습니다. 화면이 DB에 직접 붙게 되므로 서비스 계층의 주인 확인은 모든 테이블의 RLS로, 미분류 보호·순환 금지 같은 규칙은 트리거로, 여러 줄을 함께 바꾸는 일은 PL/pgSQL 함수 하나(트랜잭션 하나)로 옮겼습니다. 그림은 비공개 Storage에 두고 보여 줄 때만 서명 주소로 바꾸며, 형식·용량 확인과 계정 삭제는 Edge Function에서 처리했습니다. 무료 플랜의 약점(7일 일시 정지, 자동 백업 없음)은 매일 도는 GitHub Actions 하나로 함께 막았습니다.',
+    result: [
+      '섹션 트리(단계 제한 없음, 끌어서 옮기기), 여러 단어·섹션·기간 검색과 입력 중 미리보기, 글·그림 편집기, 휴대폰 화면까지 구현',
+      '기능과 화면은 그대로 둔 채 백엔드를 Spring Boot에서 Supabase(서울)로 전환하고, 이전 이유와 설계 대응표를 문서로 정리',
+      'RLS와 트리거로 화면이 표를 직접 고쳐도 남의 데이터는 보이지 않고 규칙이 지켜지도록 설계',
+      '그림은 올리기 전 브라우저에서 줄이고 서명 주소를 재사용해 무료 저장소(1GB)·전송량을 아끼고, 1인 50MB 한도와 사용량 막대 표시',
+      'GitHub Actions가 매일 고아 그림 청소와 DB·그림 암호화 백업을 하며 일시 정지도 방지',
+      'Vitest 단위 테스트 9개와 로컬 Supabase에 대고 도는 통합 테스트 13개(RLS, DB 함수, Edge Function)를 푸시마다 자동 실행',
+    ],
+    why:
+      '일본 리전은 "한 번 고르면 영영 못 바꾸는" 선택이라 부담이 컸습니다. Supabase는 Spring이 하던 일(로그인, 세션, 메일, 캡차, 파일 저장)을 대부분 기본 기능으로 줘서 보안 패치·인증서·백업 같은 서버 운영이 사라지고, 권한 검사가 DB에 있어 기능을 늘려도 주인 확인을 빼먹을 일이 줄어듭니다.',
+    qna: [
+      { q: '화면이 DB에 직접 붙으면 보안은 어떻게 지키나요?', a: '모든 테이블에 RLS(user_id = auth.uid())를 걸고, 새 테이블은 자동으로 공개되지 않게 둔 뒤 필요한 권한만 마이그레이션에서 열었습니다. 메모와 섹션은 (section_id, user_id) 복합 FK로 묶어 다른 사람의 섹션에 메모가 들어갈 수 없고, 한 사람당 메모·섹션 개수도 트리거로 제한했습니다. 화면에는 CSP 헤더를 둬 스크립트와 연결 대상을 이 사이트, Supabase, 캡차로만 한정했습니다.' },
+      { q: 'Spring 버전에서 잃은 것은 무엇인가요?', a: 'Java 코드와 JUnit 테스트 91개, Docker 배포 묶음입니다. git 기록에는 남겨 두었습니다. "5번 틀린 뒤에만 캡차" 같은 세밀한 로그인 제한도 Supabase가 지원하지 않아, 사용자 눈에 보이지 않는 Invisible 캡차를 항상 켜는 방식으로 바꿨습니다.' },
+      { q: '검색 성능은 어떻게 확인했나요?', a: 'Spring 버전에서 50만 건으로 MySQL LIKE와 FULLTEXT ngram을 비교했습니다. FULLTEXT는 드문 단어에서 15배 빨랐지만 흔한 단어나 섹션·기간 조건에서는 6~66배 느려서, 건수를 1,000건까지만 세고 방식을 자동으로 고르게 해 가장 느린 검색을 1,337ms에서 27ms로 줄였습니다. Supabase로 옮긴 뒤에는 개인 메모 규모에 맞게 ILIKE를 쓰고, 느려지면 pg_trgm 인덱스를 붙일 계획입니다.' },
+      { q: '그림 한도 50MB는 어떻게 정했나요?', a: '무료 저장소는 모든 사용자가 함께 쓰는 1GB입니다. 캡처 한 장을 넉넉히 500KB로 잡으면 약 2,000장이라, 한 사람 한도를 약 100장인 50MB로 정하고 계정 창에서 얼마나 썼는지 보여줍니다. 올리기는 Edge Function만 할 수 있어 한도를 서버에서 확인합니다.' },
+    ],
+    stack: ['React', 'TypeScript', 'Vite', 'TipTap', 'Supabase', 'PostgreSQL (RLS·PL/pgSQL)', 'Edge Functions (Deno)', 'Vercel', 'Cloudflare Turnstile', 'Vitest', 'GitHub Actions'],
+    links: [
+      { label: 'Live', url: 'https://memoir-note.vercel.app' },
+      { label: 'GitHub', url: 'https://github.com/iokl1004/memoir' },
+      { label: '이전 기록', url: 'https://github.com/iokl1004/memoir/blob/main/docs/migration-to-supabase.md' },
+    ],
+    isPrivate: false,
+  },
+  {
     id: 'haegwang-hr',
     title: '㈜해광 인사/평가/급여 ERP 개발',
     company: '사람누리',
@@ -152,7 +203,7 @@ export const projects: Project[] = [
   },
   {
     id: 'hanmi-payroll',
-    featured: 3,
+    featured: 4,
     headline: { label: '급여 계산 대상', value: '사원 약 200명' },
     title: '한미엔택 인사/급여/근태 ERP 구축',
     company: '티에이케이정보시스템',
@@ -378,7 +429,7 @@ export const projects: Project[] = [
   {
     id: 'movie-web-service',
     kind: 'personal',
-    featured: 2,
+    featured: 3,
     title: '영화 정보 웹 서비스',
     period: '2024.10 ~ 2024.11',
     role: '1인 개발 / 인프런 강의 수강 후 직접 확장',

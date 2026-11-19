@@ -8,7 +8,7 @@ export const profile = {
   // 히어로의 계층 그림. work: 실무 / study: 학습, 개인 프로젝트
   layers: [
     { badge: 'UI', name: 'Frontend', caption: '화면', work: ['JavaScript', 'HTML', 'JSP'], study: ['React', 'TypeScript'] },
-    { badge: 'API', name: 'Backend', caption: 'API와 비즈니스 로직', work: ['Java', 'Spring', 'JPA', 'MyBatis'], study: ['Node.js'] },
+    { badge: 'API', name: 'Backend', caption: 'API와 비즈니스 로직', work: ['Java', 'Spring', 'JPA', 'MyBatis'], study: ['Node.js', 'Supabase'] },
     { badge: 'DB', name: 'Database', caption: '저장과 조회', work: ['MS-SQL', 'Oracle', 'PostgreSQL'], study: ['MongoDB'] },
   ],
 }
