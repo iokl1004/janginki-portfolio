@@ -6,10 +6,16 @@ import bookSearch from '../assets/projects/booknearby-search.jpg'
 import bookDetail from '../assets/projects/booknearby-detail.jpg'
 import memoirHome from '../assets/projects/memoir-home.jpg'
 import memoirSearch from '../assets/projects/memoir-search.jpg'
+// 휴대폰과 작은 카드용 720px 사본 (홈 화면에서 srcset으로 사용)
+import movieHomeSm from '../assets/projects/movie-home-720.jpg'
+import bookSearchSm from '../assets/projects/booknearby-search-720.jpg'
+import bookDetailSm from '../assets/projects/booknearby-detail-720.jpg'
+import memoirHomeSm from '../assets/projects/memoir-home-720.jpg'
 
 export type Screenshot = {
   src: string
   caption: string
+  small?: string // 720px 사본
   width: number
   height: number
 }
@@ -59,8 +65,8 @@ export const projects: Project[] = [
       '지도에 표시 (카카오맵)',
     ],
     screenshots: [
-      { src: bookDetail, caption: '소장 도서관 목록과 지도: 동네 검색, 오늘 여는 곳만, 대출 정보 확인 시각, 지도 정보 카드', width: 1280, height: 800 },
-      { src: bookSearch, caption: '검색 결과: 제목·저자 동시 검색, 20권씩 더 보기', width: 1280, height: 800 },
+      { src: bookDetail, small: bookDetailSm, caption: '소장 도서관 목록과 지도: 동네 검색, 오늘 여는 곳만, 대출 정보 확인 시각, 지도 정보 카드', width: 1280, height: 800 },
+      { src: bookSearch, small: bookSearchSm, caption: '검색 결과: 제목·저자 동시 검색, 20권씩 더 보기', width: 1280, height: 800 },
       { src: bookHome, caption: '첫 화면: 요즘 많이 빌리는 책, 찜한 책', width: 1280, height: 800 },
     ],
     problem:
@@ -108,7 +114,7 @@ export const projects: Project[] = [
       '권한·규칙을 DB(RLS·트리거·함수)로 이전',
     ],
     screenshots: [
-      { src: memoirHome, caption: '섹션 트리, 메모 목록, 글과 그림을 함께 쓰는 편집기', width: 1280, height: 800 },
+      { src: memoirHome, small: memoirHomeSm, caption: '섹션 트리, 메모 목록, 글과 그림을 함께 쓰는 편집기', width: 1280, height: 800 },
       { src: memoirSearch, caption: '입력하는 동안 검색 결과 미리보기: 섹션 경로와 작성일 표시', width: 1280, height: 800 },
     ],
     problem:
@@ -448,7 +454,7 @@ export const projects: Project[] = [
     note:
       '배포본은 GitHub Pages(정적 호스팅)에 올라가 있어서, 로그인/댓글/좋아요처럼 서버가 필요한 기능은 로컬 개발 환경에서만 동작합니다.',
     screenshots: [
-      { src: movieHome, caption: '메인 화면', width: 1280, height: 608 },
+      { src: movieHome, small: movieHomeSm, caption: '메인 화면', width: 1280, height: 608 },
       { src: movieHover, caption: '영화 카드에 마우스를 올리면 제목, 평점, 소개글 표시', width: 1280, height: 594 },
       { src: movieDetail, caption: '영화 상세 정보 화면', width: 1280, height: 608 },
     ],

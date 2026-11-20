@@ -36,6 +36,7 @@ export const personalProjects: PersonalProject[] = [
     tag: '인프런 강의 실습',
     description: '처음 만난 리액트 강의의 미니 블로그 프로젝트',
     live: 'https://iokl1004.github.io/first_met-mini-blog/',
+    repo: 'https://github.com/iokl1004/first_met-mini-blog',
   },
   {
     title: '쇼핑몰',
@@ -43,6 +44,7 @@ export const personalProjects: PersonalProject[] = [
     tag: '코딩애플 강의 실습',
     description: '코딩애플 강의의 쇼핑몰 프로젝트',
     live: 'https://iokl1004.github.io/coding-apple-shop/',
+    repo: 'https://github.com/iokl1004/coding-apple-shop',
   },
   {
     title: '블로그 제작 & 기초 문법',
@@ -50,6 +52,7 @@ export const personalProjects: PersonalProject[] = [
     tag: '코딩애플 강의 실습',
     description: '코딩애플 강의의 블로그 제작과 React 기초 문법',
     live: 'https://iokl1004.github.io/coding-apple-blog/',
+    repo: 'https://github.com/iokl1004/coding-apple-blog',
   },
   {
     title: '한입 크기로 잘라 먹는 리액트',
@@ -64,6 +67,7 @@ export const personalProjects: PersonalProject[] = [
     tag: '개인 학습',
     description: '영화 소개 데이터를 크롤링해 만든 Movie App 홈페이지',
     live: 'https://iokl1004.github.io/react-movie/',
+    repo: 'https://github.com/iokl1004/react-movie',
   },
   {
     title: '간단한 게시판 블로그',
@@ -78,5 +82,6 @@ export const personalProjects: PersonalProject[] = [
     tag: '개인 학습',
     description: 'React.js로 만든 간단한 ToDoList 홈페이지',
     live: 'https://iokl1004.github.io/mashup-todolist',
+    repo: 'https://github.com/iokl1004/mashup-todolist',
   },
 ]

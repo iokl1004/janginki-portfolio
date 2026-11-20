@@ -1,0 +1,59 @@
+/* 케이스 스터디: 홈과 같은 .wrap 선 위에, 문서처럼 읽히는 한 단 */
+/* 홈의 섹션 규칙(세로 flex, 넓은 간격)을 여기서는 풉니다 */
+main.case > section:not(.hero) { padding: var(--s-8) 0; }
+main.case > section:not(.hero) > .wrap { display: block; }
+main.case > section.case__head { padding-top: calc(var(--nav) + var(--s-7)); padding-bottom: var(--s-6); }
+.case__back { color: var(--muted); text-decoration: none; font-size: var(--t-small); display: inline-flex; align-items: center; min-height: 44px; margin-bottom: var(--s-6); }
+.case__back::before { content: "←"; margin-right: var(--s-2); transition: transform .2s ease; }
+.case__back:hover { color: var(--action); }
+.case__back:hover::before { transform: translateX(-3px); }
+.case__head h1 { font: var(--display-weight) clamp(36px, 4.2vw, 60px)/1.08 var(--font-display); letter-spacing: var(--display-tracking-xl); max-width: 20ch; margin: 0; }
+.case__lead { font-size: var(--t-lead); line-height: 1.55; max-width: 46ch; margin-top: var(--s-5); }
+.case__facts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-5) var(--gutter, 24px); margin: var(--s-7) 0 0; padding-top: var(--s-5); border-top: 1px solid var(--line); }
+.case__facts > div { display: grid; gap: var(--s-1); align-content: start; }
+.case__facts dt { font-size: var(--t-small); color: var(--muted); }
+.case__facts dd { margin: 0; font-weight: 500; }
+.case__facts-wide { grid-column: span 2; }
+.case__fact-hi { color: var(--action); }
+.case__head .btn-row { margin-top: var(--s-6); }
+.case__note { margin-top: var(--s-5); font-size: var(--t-small); }
+
+/* 화면: 첫 장은 전체 폭, 나머지는 두 장씩 */
+.case__shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
+.case__shot { width: 100%; height: auto; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); }
+.case__fig { margin: 0; display: grid; gap: var(--s-3); align-content: start; }
+.case__fig figcaption { font-size: var(--t-small); line-height: 1.6; color: var(--muted); max-width: 62ch; }
+.case__fig--main { grid-column: 1 / -1; }
+.case__shots:has(> .case__fig:nth-child(2):last-child) .case__fig:last-child { grid-column: 1 / -1; }
+
+/* 처리 흐름: 번호가 붙은 한 줄 */
+.case__flow { list-style: none; margin: var(--s-7) 0 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--s-3); }
+.case__flow li { display: grid; gap: var(--s-2); align-content: start; padding: var(--s-5); border-radius: var(--r-md); background: var(--surface); font-weight: 500; }
+.case__step { font: 500 var(--t-label)/1 var(--font-text); color: var(--action); font-variant-numeric: tabular-nums; }
+
+/* 본문: 왼쪽에 소제목, 오른쪽에 글 */
+.case__body .wrap { display: grid; gap: 0; }
+.case__row { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 8fr); gap: var(--s-5) var(--gutter, 24px); align-items: baseline; padding: var(--s-7) 0; border-top: 1px solid var(--line); }   /* 위아래 선 사이 가운데 */
+.case__row > h2 { font: 500 var(--t-lead)/1.4 var(--font-text); letter-spacing: 0; margin: 0; }
+.case__row > p, .case__row > .rows, .case__row > .faq { max-width: 68ch; margin: 0; line-height: 1.75; }
+.case__row .rows > li > p { color: var(--ink); }
+.case__chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+
+/* 다음 프로젝트: 한 줄 전체가 링크 */
+.case__next-link { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: var(--s-5); padding: var(--s-7); border-radius: var(--r-lg); background: var(--surface); color: inherit; text-decoration: none; transition: transform .2s ease; }
+.case__next-link:hover { transform: translateY(-2px); }
+.case__next-title { font: var(--display-weight) var(--t-h3, 28px)/1.25 var(--font-display); }
+.case__next-link::after { content: "→"; grid-column: 3; grid-row: 1; transition: transform .2s ease; }
+.case__next-link:hover::after { transform: translateX(3px); }
+
+@media (max-width: 767px) {
+  main.case > section:not(.hero) { padding: var(--s-7) 0; }
+  main.case > section.case__head { padding-top: calc(var(--nav) + var(--s-5)); }
+  .case__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case__shots { grid-template-columns: minmax(0, 1fr); }
+  .case__flow { grid-auto-flow: row; }
+  .case__row { grid-template-columns: minmax(0, 1fr); }
+  .case__next-link { grid-template-columns: minmax(0, 1fr); padding: var(--s-6); }
+  .case__next-link::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .case__next-link, .case__next-link::after { transition: none; } }

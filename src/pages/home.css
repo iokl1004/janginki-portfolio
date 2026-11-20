@@ -1,0 +1,133 @@
+/* 홈 페이지 CSS: 키트에 없는 것, 그림 안쪽만 */
+
+/* 히어로: 책있나 화면을 프레임이 오려 낸 창으로 */
+.hero--split .hero-shot { background: var(--surface); }
+.hero--split .hero-shot > img {
+  position: absolute; inset: auto; left: var(--s-7); top: var(--s-7);
+  width: 150%; height: auto; max-width: none; object-fit: initial;
+  border-radius: var(--r-md) 0 0 0; border: 1px solid var(--line);
+}
+@media (max-width: 639px) {
+  .hero--split .hero-shot > img { left: var(--s-5); top: var(--s-5); width: 190%; }
+}
+
+/* picture-develops: 분할의 오른쪽 열, 화면 비율 그대로 */
+.develop { margin: 0; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 16 / 10; border: 1px solid var(--line); }
+.develop > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.lead-fact { color: var(--action); font-weight: 500; }
+
+/* 작업 타일: 화면 캡처는 16:10, 위쪽 기준으로 */
+.tile__media.shot { --tile-ratio: 16 / 10; border: 1px solid var(--line); }
+.tile__media.shot > img { object-position: top left; }
+
+/* 실무 목록의 행 링크 */
+.row-link { color: inherit; text-decoration: none; }
+.row-link:hover { color: var(--action); }
+
+/* UI, API, DB 계층 그림 (멈춘 다이어그램) */
+.layers { margin: 0; display: grid; gap: var(--s-6); align-content: start; padding: var(--s-7); border-radius: var(--r-lg); background: var(--surface); }
+.layers__row { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--s-4); }
+.layers__badge { display: grid; place-items: center; height: 44px; border-radius: var(--r-sm); background: var(--bg); border: 1px solid var(--line); font: 500 13px/1 var(--font-text); color: var(--action); }
+.layers__name { font-weight: 500; }
+.layers__chips, .layers__key { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-3); }
+.layers__key { margin-top: 0; padding-top: var(--s-5); border-top: 1px solid var(--line); }
+
+/* 기술 열: 실제 로고를 모은 패널, 그 아래 글 */
+.stack-col { display: grid; gap: var(--s-4); align-content: start; }
+.icon-panel { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--s-5); height: 160px; padding: var(--s-5); overflow: hidden; border-radius: var(--r-lg); background: var(--surface); }
+.icon-panel .ic { width: auto; height: 40px; max-width: 96px; object-fit: contain; }
+@media (max-width: 639px) { .icon-panel { height: 112px; } .icon-panel .ic { height: 36px; } }
+
+/* 한글은 라틴 글자보다 넓어서, 히어로 제목을 한 단계 줄여 세 줄 안에 둡니다 */
+.hero--split h1 { font-size: clamp(36px, 4.4vw, 64px); }
+
+/* 태블릿: 작업 타일 두 개를 나란히 두어 두 화면 안에 넣습니다 */
+@media (min-width: 640px) and (max-width: 1023px) {
+  #work .grid > .tile { grid-column: span 6; }
+}
+
+/* 휴대폰: 기술 카드는 로고와 사용처만 */
+@media (max-width: 639px) { .stack-col > p { display: none; } }
+
+/* 휴대폰 첫 화면: 숫자 세 개는 접고 화면 그림에 자리를 줍니다 (리드 문장에 3년이 있음) */
+@media (max-width: 639px) { .hero__facts { display: none; } }
+
+/* 소개: 이메일과 GitHub, 각각 복사 버튼 */
+.hero-contact { list-style: none; margin: var(--s-6) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.hero-contact li { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; align-items: center; gap: var(--s-3); min-height: 44px; border-bottom: 1px solid var(--line); }
+.hero-contact__label { font-size: var(--t-label); color: var(--muted); }
+.hero-contact__value { color: var(--ink); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .25s ease, color .2s ease; }
+.hero-contact__value:hover { color: var(--action); background-size: 100% 1px; }
+.copy-btn { min-width: 72px; height: 32px; padding: 0 var(--s-3); border: 1px solid var(--line); border-radius: var(--r-sm); background: transparent; color: var(--muted); font: 500 var(--t-label)/1 var(--font-text); cursor: pointer; transition: background-color .2s ease, color .2s ease, transform .15s ease; }
+.copy-btn:hover { background: var(--surface); color: var(--ink); }
+.copy-btn:active { transform: scale(.96); }
+.hero-more { display: inline-flex; align-items: center; min-height: 44px; margin-top: var(--s-5); align-self: flex-start; }
+
+/* 소개: 개인 프로젝트 슬라이드 (서로 겹쳐 두고 투명도로 바꿉니다) */
+.hero-slides .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
+.hero-slides .hero-slide.is-on { opacity: 1; z-index: 1; }
+.hero-slides .hero-slide > img {
+  position: absolute; left: var(--s-7); top: var(--s-7); width: 150%; height: auto; max-width: none;
+  border-radius: var(--r-md) 0 0 0; border: 1px solid var(--line); transition: transform .5s ease;
+}
+.hero-slides .hero-slide:hover > img { transform: scale(1.02); transform-origin: top left; }
+.hero-slides .ly-float { z-index: 2; }
+.hero-slides__ctrl { display: flex; align-items: center; gap: var(--s-2); margin-top: var(--s-2); }
+.hero-slides__dot { width: 24px; height: 24px; padding: 0; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; }
+.hero-slides__dot::before { content: ""; width: 8px; height: 8px; border-radius: 4px; background: var(--line-strong, var(--muted)); transition: width .25s ease, background-color .25s ease; }
+.hero-slides__dot[aria-current]::before { width: 20px; background: var(--action); }
+.hero-slides__pause { margin-left: auto; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--r-sm); background: transparent; color: var(--ink); cursor: pointer; }
+@media (max-width: 639px) { .hero-slides .hero-slide > img { left: var(--s-5); top: var(--s-5); width: 190%; } }
+@media (prefers-reduced-motion: reduce) { .hero-slides .hero-slide, .hero-slides .hero-slide > img, .hero-slides__dot::before { transition: none; } }
+
+/* 기술: 다섯 묶음을 한 줄에 */
+.stack-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-5); }
+.stack-grid .rows--spec > li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+.stack-grid .rows--spec .rows__value { grid-column: 1; grid-row: auto; text-align: left; white-space: normal; }
+@media (max-width: 1279px) { .stack-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--s-7); } }
+@media (max-width: 767px) { .stack-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 479px) { .stack-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* 프로젝트: 책있나 화면도 상세로 가는 링크 */
+.develop > a { display: block; width: 100%; height: 100%; overflow: hidden; }
+.develop > a > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform .5s ease; }
+.develop > a:hover > img { transform: scale(1.03); }
+.hero-slides__fact { display: block; font-size: var(--t-small); font-weight: 400; color: var(--muted); }
+
+/* 경력과 자격: 두 열이 행을 함께 써서 줄과 구분선 높이가 맞습니다 (제목 1줄 + 4행) */
+.cv { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto repeat(4, auto); column-gap: var(--s-5); }
+.cv__col { display: grid; grid-row: span 5; grid-template-rows: subgrid; }
+.cv__col > .rows { display: contents; }
+.cv__col .rows > li { padding-block: var(--s-4); align-content: start; }
+.cv__label { font: 500 var(--t-label)/1.4 var(--font-text); letter-spacing: 0; color: var(--muted); margin: 0; padding-bottom: var(--s-3); border-bottom: 1px solid var(--line); }
+@media (max-width: 767px) {
+  .cv { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: var(--s-7); }
+  .cv__col { grid-row: auto; grid-template-rows: none; }
+  .cv__col > .rows { display: block; }
+}
+
+/* 강의·독학 실습: 두 열 목록, 행끼리 높이가 맞습니다 */
+.practice { display: grid; gap: var(--s-5); }
+.practice__head { font: 500 var(--t-lead)/1.4 var(--font-text); letter-spacing: 0; margin: 0; }
+.practice__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-5); }
+.practice__list > li:first-child, .practice__list > li:nth-child(2) { padding-top: 0; }
+.practice__list > li > p { font-size: var(--t-small); }
+.practice__links { display: inline-flex; gap: var(--s-4); }
+@media (max-width: 767px) {
+  .practice__list { grid-template-columns: minmax(0, 1fr); }
+  .practice__list > li:nth-child(2) { padding-top: var(--s-4); }
+}
+
+/* 점검 수정: 1023px 이하에서는 슬라이드 카드를 작게(이름, 기간, 점만) 오른쪽 아래에 */
+@media (max-width: 1023px) {
+  .hero-slides .ly-float { left: auto; right: var(--s-4); bottom: var(--s-4); width: auto; min-width: 200px; padding: var(--s-3) var(--s-4); }
+  .hero-slides .ly-float__title { display: none; }
+}
+/* 휴대폰: 키트가 값 칸을 11글자로 좁히는 규칙 때문에 기간이 잘려서, 값을 이름 아래 줄로 */
+@media (max-width: 479px) {
+  :is(.stack-grid, .cv) .rows > li { grid-template-columns: minmax(0, 1fr); }
+  :is(.stack-grid, .cv) .rows__value { grid-column: 1; grid-row: auto; text-align: left; max-width: none; white-space: normal; }
+  .cv .rows__value { font-size: var(--t-small); }
+}
+/* 휴대폰: 아이콘이 다섯 개면 두 줄이 되므로 패널 높이를 내용에 맞춤 */
+@media (max-width: 639px) { .icon-panel { height: auto; min-height: 112px; } }

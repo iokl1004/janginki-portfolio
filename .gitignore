@@ -25,3 +25,6 @@ dist-ssr
 
 graphify-out/
 .claude/
+
+# taste skill working files
+.taste-skill/

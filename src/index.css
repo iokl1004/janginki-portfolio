@@ -1,117 +1,82 @@
-@import "tailwindcss";
+/* 디자인 키트(taste): 토큰, 그리드, 버튼, 내비, 움직임 */
+@import "../public/kit/system.css";
+@import "../public/kit/ui/cards.css";
+@import "../public/kit/motion/motion.css";
+@import "../public/kit/layout/layout.css";
+@import "../public/kit/icons/icon.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
-  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-
-  /* 사이트 포인트 색. 아래 값만 바꾸면 전체 포인트 색이 함께 바뀝니다. */
-  --color-blue-50: #f0fdfa;
-  --color-blue-400: #2dd4bf;
-  --color-blue-500: #14b8a6;
-  --color-blue-600: #0f766e;
-  --color-blue-700: #115e59;
-  --color-blue-950: #042f2e;
+/* taste 팔레트 white-link-blue, 서체 red-hat (start.mjs가 출력한 값). 한글은 Pretendard로 이어 받습니다 */
+:root {
+  --p-bg: #ffffff; --p-surface: #f4f4f4; --p-ink: #111111; --p-muted: #6b6b6b;
+  --p-accent: #1a4be0; --p-accent-ink: #ffffff; --p-action: #1a4be0; --p-action-ink: #ffffff;
+  --p-inv-bg: #111111; --p-inv-surface: #1e1e1e; --p-inv-ink: #ffffff; --p-inv-muted: #9a9a9a;
+  --p-inv-accent: #ffffff; --p-inv-accent-ink: #111111; --p-inv-action: #ffffff; --p-inv-action-ink: #111111;
+  --font-display: "Red Hat Display", "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  --font-text: "Pretendard Variable", Pretendard, system-ui, sans-serif;   /* 본문은 Pretendard 하나로: 글꼴 파일 수를 줄입니다 */
+  --display-weight: 400;
+  --display-tracking: -0.025em;
+  --display-tracking-xl: -0.035em;
 }
 
-body {
-  background-color: #ffffff;
-  color: var(--color-gray-900);
-  word-break: keep-all;
-  overflow-wrap: break-word;
-}
-
-.dark {
+/* 다크 모드: 같은 토큰을 어두운 값으로. 파랑은 어두운 바탕에서 읽히도록 밝게, 그 위 글씨는 어둡게 */
+html.dark {
   color-scheme: dark;
-  --color-gray-100: #1e293b;
-  --color-gray-200: #334155;
-  --color-gray-300: #475569;
-  --color-gray-500: #94a3b8;
-  --color-gray-600: #cbd5e1;
-  --color-gray-700: #e2e8f0;
+  --p-bg: #0e1013; --p-surface: #181b20; --p-ink: #eef0f3; --p-muted: #9ba1a9;
+  --p-accent: #7f9cff; --p-accent-ink: #0b1020; --p-action: #7f9cff; --p-action-ink: #0b1020;
+  --p-inv-bg: #050608; --p-inv-surface: #121418; --p-inv-ink: #eef0f3; --p-inv-muted: #8e949c;
+  --p-inv-accent: #eef0f3; --p-inv-accent-ink: #0b1020; --p-inv-action: #eef0f3; --p-inv-action-ink: #0b1020;
+}
+html.dark .nav__logo .logo-img { box-shadow: 0 0 0 1px var(--line); }
+
+body { word-break: keep-all; overflow-wrap: break-word; }
+
+/* 섹션 간격: 한 화면에 한 섹션 대신, 내용 높이에 맞춰 좁게 */
+main > section:not(.hero), footer.closing {
+  --sec-pad: var(--s-8);
+  height: auto; min-height: 0;
+  padding: var(--sec-pad) 0;
+  scroll-margin-top: calc(var(--nav) + var(--s-5) - var(--sec-pad));   /* 바로가기로 오면 제목이 상단 바 아래 24px에 */
+}
+main > section:not(.hero) > .wrap, footer.closing > .wrap { height: auto; display: flex; flex-direction: column; gap: var(--s-8); }
+main > section:not(.hero) .section-head { margin-bottom: 0; }
+main > section:not(.hero) > .wrap > .group { gap: var(--s-7); }
+main > section:not(.hero) > .wrap > .section-head + * { margin-top: calc(var(--s-7) - var(--s-8)); }
+main > section:not(.hero) > .wrap > .group { display: flex; flex-direction: column; }
+@media (max-width: 639px) {
+  main > section:not(.hero), footer.closing { --sec-pad: var(--s-7); padding: var(--sec-pad) 0 calc(var(--sec-pad) + var(--bar)); display: block; }
+  main > section:not(.hero) > .wrap, footer.closing > .wrap { gap: var(--s-7); }
 }
 
-.dark body {
-  background-color: #0b1120;
-  color: #f1f5f9;
+/* 테마 버튼: 보조 버튼과 같은 44px 정사각형 */
+.theme-toggle {
+  display: inline-grid; place-items: center; width: 44px; height: 44px; flex: none;
+  border: 1px solid var(--line-strong, var(--line)); border-radius: var(--r-btn, var(--r-sm));
+  background: transparent; color: var(--ink); cursor: pointer;
+  transition: background-color .2s ease, transform .15s ease;
 }
+.theme-toggle:hover { background: var(--surface); }
+.theme-toggle:active { transform: scale(.96); }
+.nav__actions { display: flex; align-items: center; gap: var(--s-3); }
+.nav__logo .logo-img { width: 26px; height: 26px; border-radius: 6px; }
 
-/* 다크 배경에서는 포인트 색 글씨를 한 단계 밝게 */
-.dark .text-blue-600,
-.dark .hover\:text-blue-600:hover {
-  color: var(--color-blue-400);
-}
+/* 사이드 메뉴: 오른쪽 여백에 이름과 점. 지금 섹션은 파랗게, 점이 길어집니다 */
+.side-nav { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 9; display: none; }
+@media (min-width: 1280px) { .side-nav { display: block; } }
+.side-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.side-nav a { display: flex; align-items: center; justify-content: flex-end; gap: var(--s-3); min-height: 28px; color: var(--muted); text-decoration: none; }
+.side-nav__dot { width: 6px; height: 6px; border-radius: 3px; background: currentColor; opacity: .45; transition: height .25s ease, opacity .25s ease, background-color .25s ease; }
+.side-nav__label { font-size: var(--t-label); font-weight: 500; transition: color .2s ease; }
+.side-nav a:hover { color: var(--ink); }
+.side-nav a:hover .side-nav__dot { opacity: 1; }
+.side-nav a[aria-current] { color: var(--action); }
+.side-nav a[aria-current] .side-nav__dot { height: 22px; opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .side-nav * { transition: none !important; } }
 
-@layer base {
-  button:not(:disabled),
-  [role='button'] {
-    cursor: pointer;
-  }
-}
-
-/* 히어로 배경: 은은한 빛 + 점 격자 */
-.hero-backdrop {
-  background:
-    radial-gradient(60% 70% at 85% 20%, color-mix(in oklab, var(--color-blue-500) 18%, transparent), transparent 70%),
-    radial-gradient(45% 55% at 5% 90%, color-mix(in oklab, var(--color-blue-400) 10%, transparent), transparent 70%);
-  mask-image: linear-gradient(to bottom, black 65%, transparent);
-}
-
-.hero-backdrop::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(var(--color-gray-300) 1px, transparent 1px);
-  background-size: 24px 24px;
-  mask-image: radial-gradient(70% 70% at 70% 40%, black, transparent);
-  opacity: 0.55;
-}
-
-/* 계층 그림에서 요청/응답이 오가는 점 */
-.packet-down,
-.packet-up {
-  animation-duration: 3.2s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-
-.packet-down {
-  animation-name: packet-down;
-}
-
-.packet-up {
-  animation-name: packet-up;
-  animation-delay: 1.6s;
-}
-
-@keyframes packet-down {
-  0% { top: 0; opacity: 0; }
-  10%, 90% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-@keyframes packet-up {
-  0% { top: 100%; opacity: 0; }
-  10%, 90% { opacity: 1; }
-  100% { top: 0; opacity: 0; }
-}
-
-/* 스크롤하면 섹션이 부드럽게 나타남 */
-@media (prefers-reduced-motion: no-preference) {
-  [data-reveal] {
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  [data-reveal]:not(.is-visible) {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .packet-down,
-  .packet-up {
-    animation: none;
-    opacity: 0;
-  }
+/* 기술 이름 칩 (홈의 계층 그림, 상세 페이지) */
+.chip { display: inline-block; padding: 2px var(--s-3); border-radius: var(--r-sm); background: var(--bg); border: 1px solid var(--line); font-size: var(--t-label); color: var(--muted); }
+.chip--work { color: var(--action); border-color: color-mix(in oklab, var(--action) 35%, transparent); }
+/* 1600px보다 좁으면 오른쪽 여백(80px)에 이름이 들어가지 않아, 이름은 마우스를 올릴 때만 */
+@media (max-width: 1599px) {
+  .side-nav__label { padding: 2px 8px; border-radius: var(--r-sm); background: var(--bg); border: 1px solid var(--line); opacity: 0; transform: translateX(6px); transition: opacity .2s ease, transform .2s ease; pointer-events: none; }
+  .side-nav a:hover .side-nav__label, .side-nav a:focus-visible .side-nav__label { opacity: 1; transform: none; }
 }
