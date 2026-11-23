@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { profile } from '../data/profile'
 import ThemeToggle from './ThemeToggle'
 import { sections } from '../data/sections'
@@ -8,11 +8,18 @@ const base = import.meta.env.BASE_URL
 
 // 홈과 상세 페이지가 함께 쓰는 상단 바. App에서 한 번만 그려서 키트(system.js)의 메뉴 동작이 끊기지 않게 합니다
 export default function SiteHeader() {
+  const { pathname } = useLocation()
+  // 홈에서만 이름을 누르면 맨 위로. 다른 화면에서는 기존처럼 홈으로 이동
+  const toTopOnHome = (e: React.MouseEvent) => {
+    if (pathname !== '/') return
+    e.preventDefault()
+    window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+  }
   return (
     <header className="nav nav--split">
       <div className="wrap nav__bar">
         <a className="skip-link" href="#top">본문으로 건너뛰기</a>
-        <Link className="nav__logo" to="/">
+        <Link className="nav__logo" to="/" onClick={toTopOnHome}>
           <img src={`${base}favicon.svg`} alt="" width={26} height={26} className="logo-img" />
           {profile.name}
         </Link>

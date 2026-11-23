@@ -112,7 +112,10 @@
 .practice__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-5); }
 .practice__list > li:first-child, .practice__list > li:nth-child(2) { padding-top: 0; }
 .practice__list > li > p { font-size: var(--t-small); }
-.practice__links { display: inline-flex; gap: var(--s-4); }
+/* 링크 묶음은 오른쪽에서 두 줄을 차지하고, 설명은 이름 바로 아래에 붙여 행 높이를 고르게 */
+.practice__links { grid-row: span 2; align-self: start; display: inline-flex; flex-direction: column; align-items: flex-end; }
+.practice__list > li { grid-template-rows: auto 1fr; }   /* 링크가 길어져도 남는 높이는 설명 아래로 */
+.practice__list > li > p { grid-column: 1; align-self: start; }
 @media (max-width: 767px) {
   .practice__list { grid-template-columns: minmax(0, 1fr); }
   .practice__list > li:nth-child(2) { padding-top: var(--s-4); }

@@ -171,8 +171,8 @@ export default function Home() {
                   <li key={pp.title}>
                     <span className="rows__name">{pp.title}</span>
                     <span className="rows__value practice__links">
-                      {pp.live && <a className="link" href={pp.live} target="_blank" rel="noreferrer">사이트</a>}
                       {pp.repo && <a className="link" href={pp.repo} target="_blank" rel="noreferrer">GitHub</a>}
+                      {pp.live && <a className="link" href={pp.live} target="_blank" rel="noreferrer">사이트</a>}
                     </span>
                     <p className="muted">{pp.tag} · {pp.period}</p>
                   </li>
